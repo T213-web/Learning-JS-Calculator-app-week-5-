@@ -8,7 +8,7 @@
     <body>
         <h1 id="heading1"></h1>
         <p id="paragraph1"></p>
-
+        <p id="paragraph2"></p>
         
         <script>
             var text1;
@@ -16,10 +16,12 @@
             text1 = "hello everyone";
             text2 = "I love learning";
             text3 = " JS is awesome";
+            var numA = 7;
+            var numB = 10;
 
             document.getElementById("heading1").innerHTML = (text1);
             document.getElementById("paragraph1").innerHTML = (text2+text3);
-
+             document.getElementById("paragraph2").innerHTML = (numA + "x" + numB + "=" + numA*numB);
         </script>
     </body>
 
