@@ -4,6 +4,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+   border: 1px solid #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Table styling */
@@ -12,11 +15,17 @@ table {
   text-align: center;
   border-collapse: collapse;
   font: normal 3em Arial, Helvetica, sans-serif;
+   border: 1px solid #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 tr {
   height: 16.02vh;
   background-color: #000;
+   border: 1px solid #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 td {
@@ -32,13 +41,16 @@ td:hover {
 
 /* Input box */
 #inputBox {
-   background-color: #00ff00;
+  background-color: cornflowerblue;
   text-align: right;
   width: 100%;
   font-size: 2em;
-  color: #fff;
-  border: none;
+  color: black;
+   border: 1px solid #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
   outline: none;
+  border-radius: 8px;
 }
 
 /* Base button style */
@@ -50,65 +62,58 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4);
+  background-color: #000;
+  box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff;
 }
 
-/* Hover glow and color effect */
+/* Hover glow effect for all buttons */
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff;
+  box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  color: #000;
+  background-color: #66ffe0;
 }
 
 /* Digit buttons */
 .digitButton {
   background-color: #000;
-}
-
-.digitButton:hover {
-  background-color: #66ffe0;
-  color: #000;
-  box-shadow: 0 0 30px #66ffe0, 0 0 60px #66ffe0;
+  border-radius: 8px;
 }
 
 /* Operator buttons */
 .operatorButton {
-  background-color: #ff9e06;
-}
-
-.operatorButton:hover {
-  background-color: #ffc107;
-  color: #000;
-  box-shadow: 0 0 30px #ffc107, 0 0 60px #ffc107;
+  background-color: blue;
+  border-radius: 8px;
 }
 
 /* AC button */
 .ACButton {
-  background-color: #656165;
-}
-
-.ACButton:hover {
-  background-color: #ff4d6d;
-  color: #000;
-  box-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d;
-}
-
-/* Glowing header or box */
-.glow-box {
-  width: 100%;
-  height: 40px;
-  background-color: black;
-  padding: 10px 20px;
-  display: inline-block;
+  background-color: red;
   border-radius: 8px;
-  box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff;
-  transition: box-shadow 0.3s ease;
-  color: cornflowerblue;
-  font-size: 30px;
-  font-weight: 800;
-  text-align: center;
-  font-family: Helvetica, sans-serif;
 }
 
-.glow-box:hover {
+/* Optional: stronger individual glow overrides */
+.digitButton:hover,
+.operatorButton:hover,
+.ACButton:hover {
+  background-color: aqua;
   box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  color: #000;
 }
+.equalsButton {
+  background-color: yellow; /* Same as input box */
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow:  0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.equalsButton:hover {
+  background-color: aqua;
+  color: #000;
+  box-shadow:  0 0 50px #00f0ff, 0 0 100px #00f0ff;
+}
+
+
