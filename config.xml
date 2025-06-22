@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.example.mycalculator" version="1.0.0"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+
+  <name>My Calculator</name>
+  <description>This is my test mobile calculator app.</description>
+  <author email="you@example.com">Your Name</author>
+
+  <!-- Icon -->
+  <icon src="icon.png" />
+
+  <!-- Offline access -->
+  <access origin="*" />
+  <allow-navigation href="*" />
+  <allow-intent href="*" />
+
+  <!-- Launch content -->
+  <content src="index.html" />
+
+  <!-- Android settings -->
+  <platform name="android">
+    <icon src="icon.png" />
+  </platform>
+
+</widget>

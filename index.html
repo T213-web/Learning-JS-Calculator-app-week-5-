@@ -1,33 +1,260 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td class="inputCell" colspan="4">
+                <input type="text" id="inputBox" value="0"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="operatorButton" onclick="percentBtnPressed()">%</td>
+            <td class="operatorButton" onclick="sqrtBtnPressed()">√</td>
+            <td class="operatorButton" onclick="squareBtnPressed()">x²</td>
+            <td class="operatorButton" onclick="toggleBracket()">()</td>
+        </tr>
+        <tr>
+            <td class="digitButton" onclick="digitBtnPressed(7)">7</td>
+            <td class="digitButton" onclick="digitBtnPressed(8)">8</td>
+            <td class="digitButton" onclick="digitBtnPressed(9)">9</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('x')">x</td>
+        </tr>
+        <tr>
+            <td class="digitButton" onclick="digitBtnPressed(4)">4</td>
+            <td class="digitButton" onclick="digitBtnPressed(5)">5</td>
+            <td class="digitButton" onclick="digitBtnPressed(6)">6</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('-')">-</td>
+        </tr>
+        <tr>
+            <td class="digitButton" onclick="digitBtnPressed(1)">1</td>
+            <td class="digitButton" onclick="digitBtnPressed(2)">2</td>
+            <td class="digitButton" onclick="digitBtnPressed(3)">3</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('+')">+</td>
+        </tr>
+        <tr>
+            <td class="digitButton" onclick="digitBtnPressed(0)">0</td>
+            <td class="digitButton" onclick="digitBtnPressed('.')">.</td>
+            <td class="ACButton" onclick="btnAcPressed()">AC</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('/')">/</td>
+        </tr>
+        <tr>
+            <td class="equalsButton" colspan="4" onclick="equalsBtnPressed()">=</td>
+        </tr>
+    </table>
+
+<script>
+    var newLine = true;
+    var value1 = null;
+    var currentOperator = null;
+    let bracketState = true;
+
+    window.digitBtnPressed = function(button) {
+    const inputBox = document.getElementById("inputBox");
+    const currentValue = inputBox.value;
+    const cursorPos = inputBox.selectionStart;
+
+    if (newLine && currentValue === "0") {
+        inputBox.value = button;
+        newLine = false;
+        setCaretPosition(inputBox, inputBox.value.length);
+        return;
+    }
+
+    // If typing right before a trailing ², insert digit before ²
+    if (cursorPos === currentValue.length && currentValue.endsWith("²")) {
+        inputBox.value = currentValue.slice(0, -1) + button + "²";
+        setCaretPosition(inputBox, currentValue.length); // caret before ²
+        newLine = false;
+        return;
+    }
+
+    const before = currentValue.slice(0, cursorPos);
+    const after = currentValue.slice(cursorPos);
+    inputBox.value = before + button + after;
+    setCaretPosition(inputBox, cursorPos + 1);
+    newLine = false;
+}
+
+   
+        window.equalsBtnPressed = function() {
+        let expr = document.getElementById("inputBox").value;
+        expr = expr.replace(/x/g, "*").replace(/÷/g, "/");
+        expr = expr.replace(/√(\d+(\.\d+)?|\([^\(\)]+\))/g, "Math.sqrt($1)");
+        expr = expr.replace(/(\([^\(\)]+\)|\d+(\.\d+)?)(²)/g, "Math.pow($1, 2)");
+
+        try {
+            let result = eval(expr);
+            document.getElementById("inputBox").value = result;
+        } catch(e) {
+            alert("Invalid expression");
+        }
+
+        newLine = true;
+    }
+
+    window.percentBtnPressed = function() {
+    const inputBox = document.getElementById("inputBox");
+    const expr = inputBox.value;
+
+    // Match the last number and operator
+    const match = expr.match(/(.+?)([+\-x*/])(\d+(\.\d+)?)$/);
+
+    if (match) {
+        let value1 = parseFloat(match[1]);
+        let operator = match[2];
+        let value2 = parseFloat(match[3]);
+        let result;
+
+        switch (operator) {
+            case '+':
+                result = value1 + (value1 * value2 / 100);
+                break;
+            case '-':
+                result = value1 - (value1 * value2 / 100);
+                break;
+            case 'x':
+            case '*':
+                result = value1 * (value2 / 100);
+                break;
+            case '/':
+                result = value1 / (value2 / 100);
+                break;
+            default:
+                result = value2;
+        }
+
+        inputBox.value = result;
+        newLine = true;
+    } else {
+        alert("Use an operator and a number before pressing %");
+    }
+}
 
 
-    </head>
-    <body>
-        <h1 id="heading1"></h1>
-        <p id="paragraph1"></p>
-        <p id="paragraph2"></p>
-        
-        <script>
-            var text1;
-            var text2;
-            text1 = "hello everyone";
-            text2 = "I love learning";
-            text3 = " JS is awesome";
-            var numA = 7;
-            var numB = 10;
+    window.squareBtnPressed = function() {
+    const inputBox = document.getElementById("inputBox");
+    let currentValue = inputBox.value;
+    const cursorPos = inputBox.selectionStart;
 
-            document.getElementById("heading1").innerHTML = (text1);
-            document.getElementById("paragraph1").innerHTML = (text2+text3);
-             document.getElementById("paragraph2").innerHTML = (numA + "x" + numB + "=" + numA*numB);
-        </script>
-    </body>
+    // If new line or input is "0", insert "²" and put cursor before it (for typing number first)
+    if (newLine || currentValue === "0") {
+        inputBox.value = "²";
+        setCaretPosition(inputBox, 0); // cursor before the ²
+        newLine = false;
+        return;
+    }
+
+    // If there's a number before cursor, find full number and add ² after it
+    if (cursorPos > 0 && /\d/.test(currentValue[cursorPos - 1])) {
+        let i = cursorPos - 1;
+        while (i >= 0 && /[\d\.]/.test(currentValue[i])) i--;
+        const before = currentValue.slice(0, i + 1);
+        const number = currentValue.slice(i + 1, cursorPos);
+        const after = currentValue.slice(cursorPos);
+        inputBox.value = before + number + "²" + after;
+        setCaretPosition(inputBox, (before + number + "²").length);
+    } else {
+        // Otherwise, just insert ² at cursor position with cursor before it
+        const before = currentValue.slice(0, cursorPos);
+        const after = currentValue.slice(cursorPos);
+        inputBox.value = before + "²" + after;
+        setCaretPosition(inputBox, before.length);
+    }
+
+    newLine = false;
+}
+
+// Add this function for AC button to clear input and reset state
+    window.btnAcPressed = function(){
+    const inputBox = document.getElementById("inputBox");
+    inputBox.value = "0";
+    newLine = true;
+}
+
+
+      window.setCaretPosition = function(ctrl, pos) {
+        if (ctrl.setSelectionRange) {
+            ctrl.focus();
+            ctrl.setSelectionRange(pos, pos);
+        } else if (ctrl.createTextRange) {
+            var range = ctrl.createTextRange();
+            range.collapse(true);
+            range.moveEnd("character", pos);
+            range.moveStart("character", pos);
+            range.select();
+        }
+    }
+    window.sqrtBtnPressed = function(){
+    const inputBox = document.getElementById("inputBox");
+    let currentValue = inputBox.value;
+    const cursorPos = inputBox.selectionStart;
+
+    if (currentValue === "0") {
+        // Replace 0 with √() and put cursor inside parentheses
+        inputBox.value = "√()";
+        setCaretPosition(inputBox, 2); // after √(
+    } else {
+        // Insert √() at cursor position as usual
+        const before = currentValue.slice(0, cursorPos);
+        const after = currentValue.slice(cursorPos);
+        inputBox.value = before + "√()" + after;
+        setCaretPosition(inputBox, cursorPos + 2);
+    }
+    newLine = false;
+}
+
+    window.operatorBtnPressed = function(op) {
+    const inputBox = document.getElementById("inputBox");
+    let currentValue = inputBox.value;
+
+    // If starting fresh or after result, don't allow operator at start (except minus)
+    if (newLine) {
+        if (op === '-') {
+            inputBox.value = '-';
+            newLine = false;
+        } else {
+            // ignore other operators at start
+            return;
+        }
+    } else {
+        // Prevent double operators — if last char is operator, replace it
+        if (/[+\-x/*]$/.test(currentValue)) {
+            currentValue = currentValue.slice(0, -1);
+        }
+        inputBox.value = currentValue + op;
+    }
+
+    newLine = false;
+}
+    window.toggleBracket = function(){
+    const inputBox = document.getElementById("inputBox");
+    const value = inputBox.value;
+    const cursorPos = inputBox.selectionStart;
+
+    const openCount = (value.slice(0, cursorPos).match(/\(/g) || []).length;
+    const closeCount = (value.slice(0, cursorPos).match(/\)/g) || []).length;
+
+    let insertChar = "";
+
+    if (openCount === closeCount) {
+        insertChar = "(";
+    } else {
+        insertChar = ")";
+    }
+
+    const before = value.slice(0, cursorPos);
+    const after = value.slice(cursorPos);
+    inputBox.value = before + insertChar + after;
+
+    setCaretPosition(inputBox, cursorPos + 1);
+    newLine = false;
+}
 
 
 
-
-
-
+</script>
+</body>
 </html>

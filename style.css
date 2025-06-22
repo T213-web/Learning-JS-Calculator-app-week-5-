@@ -7,6 +7,11 @@ body {
    border: 1px solid #00f0ff;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
   transition: box-shadow 0.3s ease-in-out;
+    height: 100vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  
 }
 
 /* Table styling */
@@ -18,10 +23,13 @@ table {
    border: 1px solid #00f0ff;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
   transition: box-shadow 0.3s ease-in-out;
+   width: 90vw;           /* responsive width */
+  max-width: 360px;      /* max width for consistency */
+  height: 90vh;
 }
 
 tr {
-  height: 16.02vh;
+  height: 16.6%;
   background-color: #000;
    border: 1px solid #00f0ff;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
@@ -33,24 +41,39 @@ td {
   border: 1px solid #00f0ff;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
   transition: box-shadow 0.3s ease-in-out;
+  height: 16.6%;
 }
 
 td:hover {
   box-shadow: 0 0 40px #00f0ff, 0 0 80px #00f0ff;
 }
+.inputCell {
+  border-radius: 8px;
+  padding: 0%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+
+
+
+}
 
 /* Input box */
 #inputBox {
-  background-color: cornflowerblue;
+  background-color: yellow;
   text-align: right;
   width: 100%;
-  font-size: 2em;
+  font-size: 1.8em;
   color: black;
    border: 1px solid #00f0ff;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
   transition: box-shadow 0.3s ease-in-out;
   outline: none;
   border-radius: 8px;
+  height: 100%;
+  box-sizing: border-box;
+  
+  
 }
 
 /* Base button style */
@@ -72,6 +95,9 @@ button:hover {
   box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
   color: #000;
   background-color: #66ffe0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Digit buttons */
@@ -93,15 +119,24 @@ button:hover {
 }
 
 /* Optional: stronger individual glow overrides */
-.digitButton:hover,
-.operatorButton:hover,
+.digitButton:hover {
+  background-color: #66ffe0;
+  box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  color: #000;
+  
+}
+.operatorButton:hover {
+  background-color: #66ffe0;
+  box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  color: #000;
+}
 .ACButton:hover {
   background-color: aqua;
   box-shadow: 0 0 50px #00f0ff, 0 0 100px #00f0ff;
   color: #000;
 }
 .equalsButton {
-  background-color: yellow; /* Same as input box */
+  background-color: yellow; 
   color: white;
   font-size: 1.5em;
   font-weight: bold;
@@ -113,7 +148,7 @@ button:hover {
 .equalsButton:hover {
   background-color: aqua;
   color: #000;
-  box-shadow:  0 0 50px #00f0ff, 0 0 100px #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
 
